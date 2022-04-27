@@ -1,13 +1,13 @@
 <template>
     <div class="container">
 
-
+        <!-- 从 iframe 传递过来的 JSON -->
         <div class="result-view-1">{{ request }}</div>
 
         <!-- 替换 src -->
         <iframe class="ideogrpah-view" src="/ideograph.html" width="100%" height="100%" />
 
-        <!-- 从后端返回的子图 JSON -->
+        <!-- 从后端返回的子图 JSON，需要开启后端 ideograph-server （默认的 8080 端口）-->·
         <div class="result-view-2">{{ response }}</div>
 
 
@@ -19,6 +19,7 @@
 import axios from 'axios'
 
 const ideographApi = "/api/solveCompositePattern"
+
 
 export default {
     data() {
@@ -40,6 +41,18 @@ export default {
 
             // POST 获取结果
             const solutions = (await axios.post(ideographApi, message.data)).data;
+            /** solutions 结果类型:
+             *  @type SolvePatternResponse = {
+                    solutions: Solution.PatternSolution[],
+                    elapsedTimeInMillis: number,
+                    message: string | null | undefined
+                }
+
+                @export interface PatternSolution {
+                    nodes: Record<string, WorkspaceNode>;
+                    edges: Record<string, WorkspaceEdge>;
+                }
+             */
 
             this.response = JSON.stringify(solutions);
         }
@@ -49,6 +62,11 @@ export default {
         window.removeEventListener("message", this.handleMessage)
     }
 }
+/**
+ * @description
+ * 仓库内 public 目录下资源都是从 ideograph-redux 仓库 build 产物 (dist目录) 下拷贝
+ * 需要将 dist/index.html 更名为其他名字 *.html（对应 <iframe src="*"/> ）
+ */
 </script>
 
 <style>
