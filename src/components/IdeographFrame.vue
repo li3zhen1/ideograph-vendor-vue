@@ -7,7 +7,7 @@
         <!-- 替换 src -->
         <iframe class="ideogrpah-view" src="/ideograph.html" width="100%" height="100%" />
 
-        <!-- 从后端返回的子图 JSON，需要开启后端 ideograph-server （默认的 8080 端口）-->·
+        <!-- 从后端返回的子图 JSON，需要开启后端 ideograph-server （默认的 8080 端口）-->
         <div class="result-view-2">{{ response }}</div>
 
 
@@ -64,7 +64,7 @@ export default {
 }
 /**
  * @description
- * 仓库内 public 目录下资源都是从 ideograph-redux 仓库 build 产物 (dist目录) 下拷贝
+ * 仓库内 public 目录下资源都是从 ideograph-redux 仓库 ** vendor ** 分支 build 产物 (dist目录) 下拷贝
  * 需要将 dist/index.html 更名为其他名字 *.html（对应 <iframe src="*"/> ）
  */
 </script>
